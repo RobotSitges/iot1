@@ -2,7 +2,17 @@ radio.onReceivedValue(function (name, value) {
     basic.showIcon(IconNames.Target)
     basic.showNumber(value)
     Temperatura = value
+    Internet()
 })
+function Internet () {
+    ESP8266_IoT.connectThingSpeak()
+    basic.showNumber(Temperatura)
+    ESP8266_IoT.setData(
+    "HFZG7B0GK88SB1TE",
+    Temperatura
+    )
+    ESP8266_IoT.uploadData()
+}
 let Temperatura = 0
 basic.showIcon(IconNames.No)
 ESP8266_IoT.initWIFI(SerialPin.P8, SerialPin.P12, BaudRate.BaudRate115200)
@@ -12,25 +22,8 @@ basic.showIcon(IconNames.Yes)
 basic.forever(function () {
     if (ESP8266_IoT.wifiState(true)) {
         basic.showIcon(IconNames.Yes)
-        ESP8266_IoT.connectThingSpeak()
-        basic.showNumber(Temperatura)
-        ESP8266_IoT.setData(
-        "HFZG7B0GK88SB1TE",
-        Temperatura
-        )
-        ESP8266_IoT.uploadData()
-        basic.showIcon(IconNames.Yes)
     } else {
         basic.showIcon(IconNames.No)
-    }
-    basic.pause(300000)
-})
-basic.forever(function () {
-    // Controlar la connexió amb Time
-    basic.showNumber(radio.receivedPacket(RadioPacketProperty.Time))
-    if (0 != 0) {
-        basic.showIcon(IconNames.Happy)
-    } else {
-        basic.showIcon(IconNames.Sad)
+        ESP8266_IoT.connectWifi("CentreAis", "CentreAis")
     }
 })
