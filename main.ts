@@ -26,8 +26,9 @@ basic.forever(function () {
     basic.pause(300000)
 })
 basic.forever(function () {
-    basic.showNumber(radio.receivedPacket(RadioPacketProperty.SignalStrength))
-    if (radio.receivedPacket(RadioPacketProperty.SerialNumber) != 0) {
+    // Controlar la connexió amb Time
+    basic.showNumber(radio.receivedPacket(RadioPacketProperty.Time))
+    if (0 != 0) {
         basic.showIcon(IconNames.Happy)
     } else {
         basic.showIcon(IconNames.Sad)
