@@ -26,6 +26,7 @@ basic.forever(function () {
     basic.pause(300000)
 })
 basic.forever(function () {
+    basic.showNumber(radio.receivedPacket(RadioPacketProperty.SignalStrength))
     if (radio.receivedPacket(RadioPacketProperty.SerialNumber) != 0) {
         basic.showIcon(IconNames.Happy)
     } else {
