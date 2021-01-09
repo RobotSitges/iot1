@@ -15,18 +15,25 @@ function TempsEspera () {
 }
 radio.onReceivedValue(function (name, value) {
     T1 = 1
-    Temperatura = value
+    if (name == "Temperatura") {
+        Temperatura = value
+    }
+    if (name == "BME280") {
+        BME280 = value
+    }
 })
 function Internet () {
     ESP8266_IoT.connectThingSpeak()
     ESP8266_IoT.setData(
     "HFZG7B0GK88SB1TE",
-    Temperatura
+    Temperatura,
+    BME280
     )
     ESP8266_IoT.uploadData()
     T1 = 0
     TempsEspera()
 }
+let BME280 = 0
 let Temperatura = 0
 let Y = 0
 let X = 0
